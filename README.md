@@ -2,6 +2,38 @@
 
 ## 项目介绍
 为了更好的在公司内部使用vue技术栈，我们尝试自己本地维护vue技术栈用到的核心库，在本地开发维护之前，我们需要去了解vue-router这个核心库的基本原理，而对已有的代码进行注释就是一个很好的学习方式。
+### 项目目录
+
+```
+vue-router(项目目录)
+           |
+           |_ _ _
+                |_ _ _ _  dist                            //分发目录
+                |       |
+                |       |_ _ _ _  vue-router.common.js    //基于 CommonJS 的完整构建                              
+                |       |
+                |       |_ _ _ _  vue-router.esm.js       //基于 ES Module 的完整构建
+                |       |
+                |       |_ _ _ _  vue-router.js           //基于 UMD 的完整构建,可以用于直接 CDN 引用
+                |       |
+                |       |_ _ _ _  vue-router.min.js       //vue-router.js的压缩版本
+                |
+                |_ _ _ _ types                            //接口声明文件的目录
+                |       |
+                |       |_ _ _ _  index.d.ts              //
+                |       |
+                |       |_ _ _ _  router.d.ts             //定义vue-router的接口
+                |       |
+                |       |_ _ _ _  vue.d.ts                //  
+                |                      
+                |_ _ _ _  LICENSE                         //版权说明
+                |
+                |_ _ _ _  package.json                    //项目配置文件
+                |
+                |_ _ _ _  README.md                       //项目说明
+
+
+```
 
 ### 关于vue-router
 vue-router是Vue.js官方的路由插件，它和vue.js是深度集成的，适合用于构建单页面应用。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。
