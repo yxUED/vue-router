@@ -38,6 +38,15 @@ vue-router(项目目录)
 ### 关于vue-router
 vue-router是Vue.js官方的路由插件，它和vue.js是深度集成的，适合用于构建单页面应用。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。
 
+### vue-router原理
+####先介绍下前端路由:   
+前端路由是直接找到与地址匹配的一个组件或对象并将其渲染出来。改变浏览器地址而不向服务器发出请求有两种方式:   
+1. 在地址中加入#以欺骗浏览器，地址的改变是由于正在进行页内导航.   
+2. 使用H5的window.history功能，使用URL的Hash来模拟一个完整的URL.   
+这两种方式分别对应vue-router的hash模式和history模式.
+####hash模式和history的区别:
+由于内容比较长 详情请参考: <a href='https://blog.csdn.net/lla520/article/details/77894985'>https://blog.csdn.net/lla520/article/details/77894985</a>
+
 
 ## 加入我们
 注释vue-router路由库的这个事情，我们希望能有更多的人参与，大家一起共同学习进步，只要加入yxUED这个组，就可以直接把您注释的内容提交上来。
