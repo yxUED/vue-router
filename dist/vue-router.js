@@ -3,26 +3,29 @@
   * (c) 2017 Evan You
   * @license MIT
   */
+// 开头这段代码是 兼容性用的，多层嵌套的匿名函数与执行(立即执行)。
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
 	(global.VueRouter = factory());
-}(this, (function () { 'use strict';
-
+}(this, (function () {
+//使用严格模式
+'use strict';
 /*  */
 
+//抛出异常并止程序执行
 function assert (condition, message) {
   if (!condition) {
     throw new Error(("[vue-router] " + message))
   }
 }
-
+//打印警告
 function warn (condition, message) {
   if ("development" !== 'production' && !condition) {
     typeof console !== 'undefined' && console.warn(("[vue-router] " + message));
   }
 }
-
+//判断errc参数是否包含'Error'
 function isError (err) {
   return Object.prototype.toString.call(err).indexOf('Error') > -1
 }
