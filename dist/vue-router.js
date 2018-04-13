@@ -25,11 +25,12 @@ function warn (condition, message) {
     typeof console !== 'undefined' && console.warn(("[vue-router] " + message));
   }
 }
-//判断errc参数是否包含'Error'
+//判断 errc 是否是Error()类型  err 是throw new Error 抛出来的.
+//Object.prototype.toString.call(Error())的结果是 "[object Error]" 这 是个字符串
 function isError (err) {
   return Object.prototype.toString.call(err).indexOf('Error') > -1
 }
-
+//定义view对象
 var View = {
   name: 'router-view',
   functional: true,
@@ -120,7 +121,7 @@ var View = {
     return h(component, data, children)
   }
 };
-
+//处理props参数
 function resolveProps (route, config) {
   switch (typeof config) {
     case 'undefined':
@@ -141,7 +142,7 @@ function resolveProps (route, config) {
       }
   }
 }
-
+//继承函数
 function extend (to, from) {
   for (var key in from) {
     to[key] = from[key];
@@ -184,7 +185,7 @@ function resolveQuery (
   }
   return parsedQuery
 }
-
+//获取queryl里面的参数
 function parseQuery (query) {
   var res = {};
 
@@ -212,7 +213,7 @@ function parseQuery (query) {
 
   return res
 }
-
+//格式化obj
 function stringifyQuery (obj) {
   var res = obj ? Object.keys(obj).map(function (key) {
     var val = obj[key];
