@@ -30,7 +30,7 @@ function warn (condition, message) {
 function isError (err) {
   return Object.prototype.toString.call(err).indexOf('Error') > -1
 }
-//定义view对象
+//定义 router-view 对象
 var View = {
   name: 'router-view',
   functional: true,
@@ -250,7 +250,7 @@ function stringifyQuery (obj) {
 
 
 var trailingSlashRE = /\/?$/;
-
+//创建vue对象(被冻结过的 不可改变)
 function createRoute (
   record,
   location,
@@ -264,6 +264,7 @@ function createRoute (
     query = clone(query);
   } catch (e) {}
 
+  //定义vue对象
   var route = {
     name: location.name || (record && record.name),
     meta: (record && record.meta) || {},
@@ -277,9 +278,12 @@ function createRoute (
   if (redirectedFrom) {
     route.redirectedFrom = getFullPath(redirectedFrom, stringifyQuery$$1);
   }
+	/**冻结对象是指那些不能添加新的属性，不能修改已有属性的值，不能删除已有属性，以及不能修改已有属性的可枚举性、可配置性、可写性的对象。
+    也就是说，这个对象永远是不可变的
+  **/
   return Object.freeze(route)
 }
-
+//克隆value 并返回克隆后的结果
 function clone (value) {
   if (Array.isArray(value)) {
     return value.map(clone)
@@ -293,12 +297,12 @@ function clone (value) {
     return value
   }
 }
-
 // the starting route that represents the initial state
+// 路由的初始状态
 var START = createRoute(null, {
   path: '/'
 });
-
+//格式匹配 返回的结果是数组
 function formatMatch (record) {
   var res = [];
   while (record) {
@@ -319,7 +323,7 @@ function getFullPath (
   var stringify = _stringifyQuery || stringifyQuery;
   return (path || '/') + stringify(query) + hash
 }
-
+//判断是否是同一个router
 function isSameRoute (a, b) {
   if (b === START) {
     return a === b
@@ -342,7 +346,7 @@ function isSameRoute (a, b) {
     return false
   }
 }
-
+//判断是否是相同的对象
 function isObjectEqual (a, b) {
   if ( a === void 0 ) a = {};
   if ( b === void 0 ) b = {};
@@ -364,7 +368,7 @@ function isObjectEqual (a, b) {
     return String(aVal) === String(bVal)
   })
 }
-
+//判断 current的路由地址 是否包含 target的路由地址
 function isIncludedRoute (current, target) {
   return (
     current.path.replace(trailingSlashRE, '/').indexOf(
@@ -374,7 +378,7 @@ function isIncludedRoute (current, target) {
     queryIncludes(current.query, target.query)
   )
 }
-
+//判断 current 是否包含 target
 function queryIncludes (current, target) {
   for (var key in target) {
     if (!(key in current)) {
@@ -390,6 +394,7 @@ function queryIncludes (current, target) {
 var toTypes = [String, Object];
 var eventTypes = [String, Array];
 
+//定义router-link组件
 var Link = {
   name: 'router-link',
   props: {
@@ -542,6 +547,11 @@ function install (Vue) {
     }
   };
 
+// vue的混合机制
+// 单纯组件引用：
+//           父组件 + 子组件 >>> 父组件 + 子组件
+//      mixins：
+//           父组件 + 子组件 >>> new父组件
   Vue.mixin({
     beforeCreate: function beforeCreate () {
       if (isDef(this.$options.router)) {
@@ -558,7 +568,10 @@ function install (Vue) {
       registerInstance(this);
     }
   });
-
+  // Object.defineProperty(obj, prop, descriptor)
+  // obj：必需。目标对象
+  // prop：必需。需定义或修改的属性的名字
+  // descriptor：必需。目标属性所拥有的特性
   Object.defineProperty(Vue.prototype, '$router', {
     get: function get () { return this._routerRoot._router }
   });
